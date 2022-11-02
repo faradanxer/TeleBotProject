@@ -2,7 +2,7 @@ TOKEN='1880772212:AAFb7ULr5P0ps_MnHDL3IAcxG6Uooeejkyc'
 from random import randint,choice
 from requests import get
 from bs4 import BeautifulSoup
-import telebot
+import  telebot
 from telebot import types
 
 def get_random_compliment():
@@ -18,20 +18,20 @@ def get_random_compliment():
     return choice(compliments[4:])
 
 def get_dollars():
-    webpage=get('https://www.profinance.ru/currency_usd.asp').text
-    tags = BeautifulSoup(webpage, 'html.parser').find_all('b')
+    webpage=get('https://www.banki.ru/products/currency/cash/eur/moskva/').text
+    tags = BeautifulSoup(webpage, 'html.parser').find('tbody')
     spisok=[]
-    for tag in tags:
-        spisok.append(tag.get_text())
-    return spisok[6]
+    tag=tags.find('div',class_='currency-table__large-text')
+    spisok.append(tag.get_text())
+    return spisok[0]
 
 def get_euro():
-    webpage=get('https://www.profinance.ru/currency_eur.asp').text
-    tags = BeautifulSoup(webpage, 'html.parser').find_all('b')
+    webpage=get('https://www.banki.ru/products/currency/cash/eur/moskva/').text
+    tags = BeautifulSoup(webpage, 'html.parser').find('tbody')
     spisok=[]
-    for tag in tags:
-        spisok.append(tag.get_text())
-    return spisok[6]
+    tag=tags.find('div',class_='currency-table__large-text')
+    spisok.append(tag.get_text())
+    return spisok[0]
 bot = telebot.TeleBot(TOKEN);
 
 user_num1 = ''
